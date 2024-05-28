@@ -10,11 +10,24 @@ const App = () => {
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
       .then(response => response.json())
-      .then(data => setItems(data));
+      .then(data => {
+        const itemsWithDates = data.map(item => ({
+          ...item,
+          dateTime: getRandomDateTime()
+        }));
+        setItems(itemsWithDates);
+      });
   }, []);
 
-  const addItem = (title) => {
-    const newItem = { id: items.length + 1, title, completed: false };
+  const getRandomDateTime = () => {
+    const randomDate = new Date(
+      Date.now() + Math.floor(Math.random() * 10 * 24 * 60 * 60 * 1000)
+    );
+    return randomDate.toISOString().slice(0, 16); // "YYYY-MM-DDTHH:mm"
+  };
+
+  const addItem = (title, dateTime) => {
+    const newItem = { id: items.length + 1, title, dateTime: dateTime || '', completed: false };
     setItems([...items, newItem]);
   };
 
@@ -22,9 +35,9 @@ const App = () => {
     setItems(items.filter(item => item.id !== id));
   };
 
-  const editItem = (id, newTitle) => {
+  const editItem = (id, newTitle, newDateTime) => {
     setItems(
-      items.map(item => (item.id === id ? { ...item, title: newTitle } : item))
+      items.map(item => (item.id === id ? { ...item, title: newTitle, dateTime: newDateTime || '' } : item))
     );
   };
 

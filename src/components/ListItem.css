@@ -1,0 +1,26 @@
+.list-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 4px;
+  }
+  
+  .item-title-box,
+  .item-datetime-box {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+  
+  .item-datetime-box {
+    margin-left: 10px;
+  }
+  
+  button {
+    margin-left: 10px;
+  }
+  

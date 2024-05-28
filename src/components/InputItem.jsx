@@ -1,25 +1,35 @@
 import React, { useState } from 'react';
 
 const InputItem = ({ addItem }) => {
-  const [input, setInput] = useState('');
+  const [title, setTitle] = useState('');
+  const [dateTime, setDateTime] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (input) {
-      addItem(input);
-      setInput('');
+    if (!title) {
+      alert('Item label is required');
+      return;
     }
+    addItem(title, dateTime);
+    setTitle('');
+    setDateTime('');
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="input-item">
       <input
         type="text"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        placeholder="Add a new item"
+        placeholder="Add item"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        required
       />
-      <button type="submit">Add</button>
+      <input
+        type="datetime-local"
+        value={dateTime}
+        onChange={(e) => setDateTime(e.target.value)}
+      />
+      <button type="submit">Add Item</button>
     </form>
   );
 };
